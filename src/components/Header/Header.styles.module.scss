@@ -1,0 +1,60 @@
+@import "../../../styles/config.scss";
+
+.headerContainer {
+  height: 5rem;
+  border-bottom: 2px solid map-get($map: $colors, $key: gray-800);
+}
+
+.headerContent {
+  max-width: 1120px;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+
+  nav {
+    margin-left: 5rem;
+    height: 5rem;
+
+    a {
+      display: inline-block;
+      position: relative;
+      padding: 0 0.5rem;
+      height: 5rem;
+      line-height: 5rem;
+      color: map-get($map: $colors, $key: gray-300);
+      transition: 0.3s;
+
+      & + a {
+        margin-left: 2rem;
+      }
+
+      &:hover {
+        color: map-get($map: $colors, $key: white);
+      }
+
+      &.active {
+        color: map-get($map: $colors, $key: white);
+        font-weight: bold;
+      }
+
+      &.active::after {
+        content: "";
+        height: 4px;
+        width: 100%;
+        position: absolute;
+        bottom: 2px;
+        left: 0;
+        border-radius: 2px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: map-get($map: $colors, $key: yellow-500);
+      }
+    }
+  }
+
+  button {
+    margin-left: auto;
+  }
+}
