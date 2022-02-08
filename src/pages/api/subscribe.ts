@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     );
 
     let customerId = user.data.stripe_customer_id;
-
+    console.log(user.data.stripe_customer_id);
     if (!customerId) {
       const stripeCustomer = await stripe.customers.create({
         email: session.user.email,
@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await fauna.query(
         q.Update(q.Ref(q.Collection("users"), user.ref.id), {
           data: {
-            strip_customer_id: stripeCustomer.id,
+            stripe_customer_id: stripeCustomer.id,
           },
         })
       );
@@ -48,8 +48,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       success_url: `${process.env.STRIPE_SUCCESS_URL}`,
       cancel_url: `${process.env.STRIPE_CANCEL_URL}`,
     });
-
-    console.log(stripeCheckoutSessions);
 
     return res.status(200).json({ sessionId: stripeCheckoutSessions.id });
   } else {
